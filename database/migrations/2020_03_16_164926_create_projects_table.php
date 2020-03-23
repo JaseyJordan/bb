@@ -17,7 +17,6 @@ class CreateProjectsTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->bigIncrements('id');
-            //not unsignedInteger
             $table->unsignedBigInteger('owner_id');
             $table->string('title');
             $table->text('description');

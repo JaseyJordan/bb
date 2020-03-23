@@ -1,18 +1,6 @@
 <?php
 
-use App\Activity;
-use App\Project;
 use Illuminate\Support\Facades\Route;
-
-//automatically listens to method created (after update, creating for before)
-Project::created(function ($project)
-{
-    //After created generate project_id on Activity
-    Activity::create([
-        'project_id' => $project->activity
-    ]);
-});
-
 
 /*
 |--------------------------------------------------------------------------
