@@ -21,8 +21,9 @@
                             @csrf
                             <div class="card mb-3">
                                 <div class="flex">
-                                    <input class="w-full {{ $task->completed  === 1 ? 'text-gray-200' : '' }}" type="text" name="body" value="{{ $task->body }}" />
-                                    <input name="completed" type="checkbox" {{ $task->completed  === 1 ? 'checked' : '' }} onchange="this.form.submit()" />
+                                    <input class="w-full {{ $task->completed  === true ? 'text-gray-200' : '' }}"
+                                    type="text" name="body" value="{{ $task->body }}" />
+                                    <input name="completed" type="checkbox" {{ $task->completed  === true ? 'checked' : '' }} onchange="this.form.submit()" />
                                 </div>
 
                             </div>
@@ -64,6 +65,7 @@
             <div class="lg:w-1/4 px-3">
 
                 @include('projects.card')
+                @include('projects.activity.card')
             </div>
 
         </div>

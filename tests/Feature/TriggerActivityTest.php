@@ -29,7 +29,7 @@ class TriggerActivityTest extends TestCase
 
         $this->assertCount(2, $project->activity);
         //check last description equals updated
-        $this->assertEquals('Updated', $project->activity->last()->description);
+        $this->assertEquals('updated', $project->activity->last()->description);
     }
 
     /** @test */
@@ -42,7 +42,7 @@ class TriggerActivityTest extends TestCase
         $project->addTask('Task');
 
         $this->assertCount(2, $project->activity);
-        $this->assertEquals('Task_created', $project->activity->last()->description);
+        $this->assertEquals('created_task', $project->activity->last()->description);
 
     }
 
@@ -60,7 +60,7 @@ class TriggerActivityTest extends TestCase
         ]);
 
         $this->assertCount(3, $project->activity);
-        $this->assertEquals('Task_completed', $project->activity->last()->description);
+        $this->assertEquals('completed_task', $project->activity->last()->description);
 
     }
 
