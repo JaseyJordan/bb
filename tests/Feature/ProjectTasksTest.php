@@ -79,6 +79,25 @@ class ProjectTasksTest extends TestCase
         //Try to get it from outside in
         $this->actingAs($project->owner)
             ->patch($project->tasks[0]->path(), [
+                'body' => 'changed'
+            ]);
+
+        // check database for records
+        $this->assertDatabaseHas('tasks', [
+              'body' => 'changed'
+            ]);
+
+    }
+
+    /** @test */
+    public function a_task_can_be_completed()
+    {
+        //create project with 1 task
+        $project= ProjectFactory::withTasks(1)->create();
+
+        //check that it has been toggled
+        $this->actingAs($project->owner)
+            ->patch($project->tasks[0]->path(), [
                 'body' => 'changed',
                 'completed' => true
             ]);
@@ -87,6 +106,36 @@ class ProjectTasksTest extends TestCase
         $this->assertDatabaseHas('tasks', [
               'body' => 'changed',
               'completed' => true
+            ]);
+
+    }
+
+     /** @test */
+    public function a_task_can_be_marked_incomplete()
+    {
+        $this->withoutExceptionHandling();
+
+        //create project with 1 task
+        $project= ProjectFactory::withTasks(1)->create();
+
+        //check that it has been toggled
+        $this->actingAs($project->owner)
+            ->patch($project->tasks[0]->path(), [
+                'body' => 'changed',
+                'completed' => true
+            ]);
+
+        //toggle the reverse
+        $this->patch($project->tasks[0]->path(), [
+                'body' => 'changed',
+                'completed' => false
+            ]);
+
+
+        // check database for records
+        $this->assertDatabaseHas('tasks', [
+              'body' => 'changed',
+              'completed' => false
             ]);
 
     }
