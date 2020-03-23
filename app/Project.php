@@ -30,8 +30,16 @@ class Project extends Model
 
     public function addTask($body)
     {
+
         //For the project tasks, create new one where body is equal to $body
-        return $this->tasks()->create(compact('body'));
+        $task = $this->tasks()->create(compact('body'));
+
+        Activity::create([
+           'project_id' => $this->id,
+           'description' => 'Task_created'
+        ]);
+
+        return $task;
 
     }
 
