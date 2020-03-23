@@ -32,19 +32,20 @@ class Project extends Model
     {
 
         //For the project tasks, create new one where body is equal to $body
-        $task = $this->tasks()->create(compact('body'));
-
-        Activity::create([
-           'project_id' => $this->id,
-           'description' => 'Task_created'
-        ]);
-
-        return $task;
+        return $this->tasks()->create(compact('body'));
 
     }
 
     public function activity()
     {
         return $this->hasMany(Activity::class);
+    }
+
+    public function recordActivity($type)
+    {
+        Activity::create([
+            'project_id' => $this->id,
+            'description' => $type
+        ]);
     }
 }

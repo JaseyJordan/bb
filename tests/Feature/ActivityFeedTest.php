@@ -45,4 +45,22 @@ class ActivityFeedTest extends TestCase
         $this->assertEquals('Task_created', $project->activity->last()->description);
 
     }
+
+    /** @test */
+
+    public function completing_a_task_records_project_activity()
+    {
+
+        $project = ProjectFactory::withTasks(1)->create();
+
+        $this->actingAs($project->owner)
+        ->patch($project->tasks[0]->path(), [
+            'body' => 'Foobar',
+            'completed' => true
+        ]);
+
+        $this->assertCount(3, $project->activity);
+        $this->assertEquals('Task_completed', $project->activity->last()->description);
+
+    }
 }
