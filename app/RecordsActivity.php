@@ -55,6 +55,7 @@ trait RecordsActivity
     {
         //Find updated changes, compare with oldAttributes, upload new to changes column
         $this->activity()->create([
+            'user_id' => ($this->project ?? $this)->owner->id,
             'description' => $description,
             'changes' => $this->activityChanges(),
             'project_id' => class_basename($this) === 'Project' ? $this->id : $this->project_id

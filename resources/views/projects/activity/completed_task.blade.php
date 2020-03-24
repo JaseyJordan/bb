@@ -1,1 +1,1 @@
-"{{ $activity->subject->body }}" marked as complete
+{{ $activity->user->name }} marked "{{ $activity->subject->body }}" as complete
