@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class Project extends Model
 {
     protected $guarded = [];
+
+    public $old = [];
 
     public function path()
     {
@@ -43,18 +46,20 @@ class Project extends Model
 
     public function recordActivity($description)
     {
-        //activity function with the hasmany relationship allows us to create directly
-        // Activity::create([
-        //     'project_id' => $this->id,
-        //     'description' => $type
-        // ]);
         $this->activity()->create([
             'description' => $description,
-            'changes' => [
-                'before' => [],
-                'after' => []
-            ]
+            'changes' => $this->activityChanges($description)
         ]);
 
+    }
+
+    public function activityChanges($description)
+    {
+        if($description == 'updated'){
+            return [
+                'before' => Arr::except(array_diff($this->old, $this->getAttributes()), 'updated_at'),
+                'after' => Arr::except($this->getChanges(), 'updated_at') //array_diff($this->getAttributes(), $this->old)
+            ];
+        }
     }
 }

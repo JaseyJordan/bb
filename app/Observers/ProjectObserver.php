@@ -18,6 +18,17 @@ class ProjectObserver
     }
 
     /**
+     * Handle the project "updating" event.
+     * Store old details compare new store changed
+     * @param  \App\Project  $project
+     * @return void
+     */
+    public function updating(Project $project)
+    {
+        $project->old = $project->getOriginal();
+    }
+
+    /**
      * Handle the project "updated" event.
      *
      * @param  \App\Project  $project
@@ -28,36 +39,4 @@ class ProjectObserver
         $project->recordActivity('updated');
     }
 
-    /**
-     * Handle the project "deleted" event.
-     *
-     * @param  \App\Project  $project
-     * @return void
-     */
-    public function deleted(Project $project)
-    {
-        //
-    }
-
-    /**
-     * Handle the project "restored" event.
-     *
-     * @param  \App\Project  $project
-     * @return void
-     */
-    public function restored(Project $project)
-    {
-        //
-    }
-
-    /**
-     * Handle the project "force deleted" event.
-     *
-     * @param  \App\Project  $project
-     * @return void
-     */
-    public function forceDeleted(Project $project)
-    {
-        //
-    }
 }

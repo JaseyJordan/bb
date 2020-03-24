@@ -51,6 +51,7 @@ class Task extends Model
         //     'project_id' => $this->id,
         //     'description' => $type
         // ]);
+
         $this->activity()->create([
             'project_id' => $this->project_id,
             'description' => $description
