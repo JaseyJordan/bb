@@ -17,6 +17,11 @@ class CreateActivitiesTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->unsignedBigInteger('project_id');
+            $table->nullableMorphs('subject');
+            //morphs same as:
+            // $table->unsignedBigInteger('subject_id');
+            // $table->string('subject_type'); App\Task
+            $table->text('changes')->nullable();
             $table->string('description');
             $table->timestamps();
 

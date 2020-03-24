@@ -7,25 +7,25 @@ use App\Task;
 class TaskObserver
 {
     /**
-     * Handle the project "created" event.
+     * Handle the Task "created" event.
      *
      * @param  \App\Task  $task
      * @return void
      */
     public function created(Task $task)
     {
-        $task->project->recordActivity('created_task');
+        $task->recordActivity('created_task');
     }
 
     /**
-     * Handle the project "deleted" event.
+     * Handle the Task "deleted" event.
      *
      * @param  \App\Task  $task
      * @return void
      */
     public function deleted(Task $task)
     {
-        $task->project->recordActivity('Task_deleted');
+        $task->recordActivity('Task_deleted');
     }
 
 }

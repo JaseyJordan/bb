@@ -37,7 +37,7 @@ class ManageProjectsTest extends TestCase
     public function a_user_can_create_a_project()
     {
         //disable error exception
-        $this->withoutExceptionHandling();
+        //$this->withoutExceptionHandling();
 
         $this->signIn();
 

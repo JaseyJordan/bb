@@ -48,7 +48,13 @@ class Project extends Model
         //     'project_id' => $this->id,
         //     'description' => $type
         // ]);
-        $this->activity()->create(compact('description'));
+        $this->activity()->create([
+            'description' => $description,
+            'changes' => [
+                'before' => [],
+                'after' => []
+            ]
+        ]);
 
     }
 }
