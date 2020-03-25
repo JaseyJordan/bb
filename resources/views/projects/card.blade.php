@@ -4,4 +4,13 @@
 
         <div class="text-sm text-gray-200">{{ Str::limit($project->description, 100) }}</div>
 
+        <footer>
+            <form method="POST" action="{{ $project->path() }}" class="text-right">
+                @method('DELETE')
+                @csrf
+                <button class="button bg-red-500 text-xs mt-4 mr-4" type="submit">Delete</button>
+            </form>
+
+        </footer>
+
     </div>

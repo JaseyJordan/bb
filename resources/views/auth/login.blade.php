@@ -10,14 +10,13 @@
 
                 <label for="email">{{ __('E-Mail Address') }}</label>
 
-                <input id="email" type="email" class="w-full border border-gray-100 mb-4 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
                 @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
 
+                <input id="email" type="email" class="w-full border border-gray-100 mb-4 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                 <label for="password">{{ __('Password') }}</label>
 
@@ -29,7 +28,6 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-
 
                 <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 

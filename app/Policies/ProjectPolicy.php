@@ -14,7 +14,7 @@ class ProjectPolicy
     {
 
         //validate - register in authserviceprovider
-        return $user->is($project->owner);
+        return $user->is($project->owner) || $project->members->contains($user);
 
     }
 }

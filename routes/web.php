@@ -19,18 +19,13 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'auth'], function()
 {
-    Route::get('/projects', 'ProjectsController@index');
-    Route::get('/projects/create', 'ProjectsController@create');
-    Route::get('/projects/{project}', 'ProjectsController@show');
-    Route::get('/projects/{project}/edit', 'ProjectsController@edit');
-    Route::post('/projects', 'ProjectsController@store');
-    //listen to @method('patch')
-    Route::patch('/projects/{project}', 'ProjectsController@update');
+    // finds routes from controller - php artisan route:list
+    Route::resource('projects', 'ProjectsController');
 
-    Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
 
     //listen to @method('patch')
     Route::patch('/projects/{project}/tasks/{task}', 'ProjectTasksController@update');
+    Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
 
     Route::get('/home', 'HomeController@index')->name('home');
 });

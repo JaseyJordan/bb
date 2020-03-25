@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Project extends Model
 {
@@ -41,6 +42,20 @@ class Project extends Model
     public function activity()
     {
         return $this->hasMany(Activity::class)->latest();
+    }
+
+    public function invite(User $user)
+    {
+        return $this->members()->attach($user);
+    }
+
+    public function members()
+    {
+        // Belongs to mang pivot table
+        // member can belong to many projects
+        // and also a project can have many members
+
+        return $this->belongsToMany(User::class, 'project_members');
     }
 
 }

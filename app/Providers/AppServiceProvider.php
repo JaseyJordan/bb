@@ -2,10 +2,6 @@
 
 namespace App\Providers;
 
-use App\Observers\ProjectObserver;
-use App\Project;
-use App\Observers\TaskObserver;
-use App\Task;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
