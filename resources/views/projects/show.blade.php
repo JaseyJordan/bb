@@ -3,8 +3,29 @@
 @section('content')
     <header class="flex items-center mb-3">
         <div class="flex justify-between items-end w-full">
-            <p class="text-gray-200 text-sm font-normal"><a href="/projects">My Projects</a> / {{ $project->title }}</p>
-            <a href="{{ $project->path() . '/edit' }}" class="button bluebtn">Edit Project</a>
+            <p class="text-gray-200 text-sm font-normal">
+                <a href="/projects">My Projects</a> / {{ $project->title }}
+            </p>
+            <div class="inline-block">
+                @foreach ($project->members as $member)
+                    <img
+                        class="inline-block rounded-full mr-2 w-8"
+                        src="{{ gravatar($member->email) }}"
+                        alt="{{ $member->name }}"
+                        title="{{ $member->name }}" />
+                @endforeach
+
+                <img
+                    class="inline-block rounded-full mr-2 w-8"
+                    src="{{ gravatar($project->owner->email) }}"
+                    alt="{{ $project->owner->name }}"
+                    title="{{ $project->owner->name }}" />
+
+                <a href="{{ $project->path() . '/edit' }}" class="button bluebtn ml-4">
+                    Edit Project
+                </a>
+            </div>
+
         </div>
 
     </header>
