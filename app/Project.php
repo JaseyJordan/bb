@@ -55,7 +55,7 @@ class Project extends Model
         // member can belong to many projects
         // and also a project can have many members
 
-        return $this->belongsToMany(User::class, 'project_members');
+        return $this->belongsToMany(User::class, 'project_members')->withTimestamps();
     }
 
 }

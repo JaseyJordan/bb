@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="text-2xl text-center">Dashboard</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,7 +14,9 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <p class="text-center mt-6">You are logged in! </p>
+
+                    <div class="mt-6"><a href="/projects" class="button"> Projects </a></div>
                 </div>
             </div>
         </div>
