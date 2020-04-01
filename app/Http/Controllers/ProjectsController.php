@@ -66,7 +66,7 @@ class ProjectsController extends Controller
     protected function validateRequest(): array
     {
         return request()->validate([
-            'title' => 'sometimes|required',
+            'title' => 'sometimes|required|unique:projects,id',
             'description' => 'sometimes|required',
             'notes' => 'nullable'
         ]);

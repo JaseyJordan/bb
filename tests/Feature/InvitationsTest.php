@@ -13,8 +13,48 @@ class InvitationsTest extends TestCase
    use RefreshDatabase;
 
    /** @test */
-   public function a_project_can_invite_a_user(){
+   public function non_owners_can_not_invite_users()
+   {
+        $this->actingAs(factory(User::class)->create())
+        ->post(ProjectFactory::create()->path() . '/invitations')
+        ->assertStatus(403);
+   }
 
+   /** @test */
+   public function a_project_owner_can_invite_users()
+   {
+        $project = ProjectFactory::create();
+
+        $userToInvite = factory(User::class)->create();
+
+        $this->actingAs($project->owner)->post($project->path() . '/invitations', [
+            'email' => $userToInvite->email
+            ])
+            ->assertRedirect($project->path());
+
+        $this->assertTrue($project->members->contains($userToInvite));
+   }
+
+   /** @test */
+   public function the_email_address_must_be_associated_with_a_valid_birdboard_account()
+   {
+        //$this->withoutExceptionHandling();
+
+        $project = ProjectFactory::create();
+
+        $this->actingAs($project->owner)
+            ->post($project->path() . '/invitations', [
+                'email' => 'Notauser@email.com'
+                ])
+            ->assertSessionHasErrors([
+                'email' => 'The user you\'re inviting does not have a Birdboard account'
+                ]);
+   }
+
+
+   /** @test */
+   public function invited_users_can_update_project_details()
+   {
         $project = ProjectFactory::create();
 
         $project->invite($newUser = factory(User::class)->create());
