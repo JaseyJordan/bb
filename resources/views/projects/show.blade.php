@@ -69,14 +69,6 @@
 
                         <button type="submit" class="button">Save</button>
 
-                        @if($errors->any())
-                            <div class="field mt-8 px-3">
-                                @foreach($errors->all() as $error)
-                                    <li class="text-red-400 text-sm font-normal">{{ $error }}</li>
-                                @endforeach
-                            </div>
-                        @endif
-
                     </form>
 
                 </div>
@@ -87,6 +79,10 @@
 
                 @include('projects.card')
                 @include('projects.activity.card')
+                {{--if you can manage the project -- policies--}}
+                @can('manage', $project)
+                    @include('projects.invite')
+                @endcan
             </div>
 
         </div>
