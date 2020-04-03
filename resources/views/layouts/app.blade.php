@@ -53,25 +53,28 @@
                         @endif
                         @else
                         <theme-switcher></theme-switcher>
+                        <dropdown align="right" width="110px">
+                            <template v-slot:trigger>
+                                <button class="flex items-center text-default no-underline text-sm">
+                                    <img
+                                        class="inline-block rounded-full w-10 mr-4"
+                                        src="{{ gravatar(Auth::user()->email) }}"
+                                        alt="{{ Auth::user()->name }}"
+                                        title="{{ Auth::user()->name }}" />
+                                    {{ auth()->user()->name }}
+                                </button>
+                            </template>
 
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <img
-                                    class="inline-block rounded-full w-10"
-                                    src="{{ gravatar(Auth::user()->email) }}"
-                                    alt="{{ Auth::user()->name }}"
-                                    title="{{ Auth::user()->name }}" />
+                            <a  class="dropdown-menu-link" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right ml-4" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-xs" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </dropdown>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
                         @endguest
                     </div>
                 </div>

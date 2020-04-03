@@ -682,6 +682,25 @@ button {
   padding-right: 1.25rem;
 }
 
+.dropdown-menu-link {
+  display: block;
+  text-align: center;
+  line-height: 2;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  color: var(--text-default-color);
+}
+
+.dropdown-menu-link:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-toggle > button:focus {
+  outline: 0;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

@@ -1,0 +1,14 @@
+.dropdown-menu-link {
+    @apply .block .text-center .leading-loose .py-2 .px-4 .text-default; //can over ride default colour
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+}
+
+.dropdown-toggle {
+    > button:focus{
+        outline: 0;
+    }
+}
