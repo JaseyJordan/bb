@@ -12,17 +12,12 @@ class ProjectPolicy
 
     public function update(User $user, Project $project)
     {
-
         //validate - register in authserviceprovider
         return $user->is($project->owner) || $project->members->contains($user);
-
     }
 
     public function manage(User $user, Project $project)
     {
-
-        //validate - register in authserviceprovider
         return $user->is($project->owner);
-
     }
 }

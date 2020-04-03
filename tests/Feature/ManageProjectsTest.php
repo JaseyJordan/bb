@@ -41,23 +41,30 @@ class ManageProjectsTest extends TestCase
 
         $this->get('/projects/create')->assertStatus(200);
 
-        $attributes = [
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->sentence,
-            'notes' => $this->faker->paragraph
-        ];
-
         //Try to create the project
-        $response = $this->post('/projects', $attributes);
-        //look for attributes if don't have id
-        $project = Project::where($attributes)->first();
-
-        $response->assertRedirect($project->path());
-
-        $this->get($project->path())
+        $this->followingRedirects()
+            ->post('/projects', $attributes = factory(Project::class)->raw())
             ->assertSee($attributes['title'])
             ->assertSee($attributes['description'])
             ->assertSee($attributes['notes']);
+    }
+
+    /** @test */
+    public function tasks_can_be_included_as_part_of_a_new_project_creation()
+    {
+        $this->signIn();
+        $attributes = factory(Project::class)->raw();
+
+        $attributes['tasks'] = [
+            ['body' => 'Task 1'],
+            ['body' => 'Task 2']
+        ];
+
+        $this->post('/projects', $attributes);
+
+        $this->assertCount(2, Project::first()->tasks);
+
+
     }
 
     /** @test */
@@ -93,12 +100,19 @@ class ManageProjectsTest extends TestCase
     {
         $project = ProjectFactory::create();
 
-        $this->actingAs($project->owner)
-            ->delete($project->path())
-            ->assertRedirect('/projects');
+        $this->delete($project->path())
+            ->assertRedirect('/login');
 
-        //check database for deleted record
-        $this->assertDatabaseMissing('projects', $project->only('id'));
+        $user = $this->signIn();
+
+        $this->delete($project->path())->assertStatus(403);
+
+        $project->invite($user);
+
+        $this->actingAs($user)
+            ->delete($project->path())
+            ->assertStatus(403);
+
     }
 
     /** @test */

@@ -1,0 +1,4 @@
+.card {
+    @apply bg-card rounded-lg shadow p-5; //can over ride default colour
+    color: var(--text-default-color);
+}

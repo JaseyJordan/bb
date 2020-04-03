@@ -19,6 +19,20 @@ class ProjectsController extends Controller
     {
         $project = auth()->user()->projects()->create($this->validateRequest());
 
+//        if(request()->has('tasks')){
+//            foreach (request('tasks') as $task){
+//                $project->addTask($task['body']);
+//            }
+//        }
+
+        if ($tasks = request('tasks')) {
+            $project->addTasks($tasks);
+        }
+
+        if (request()->wantsJson()) {
+            return ['message' => $project->path()];
+        }
+
         // redirect
         return redirect($project->path());
 
@@ -53,7 +67,7 @@ class ProjectsController extends Controller
 
     public function destroy(Project $project)
     {
-        $this->authorize('update', $project);
+        $this->authorize('manage', $project);
 
         $project->delete();
 

@@ -15,7 +15,7 @@ class UpdateProjectRequest extends FormRequest
      */
     public function authorize()
     {
-        //this route retrieves project id
+        //this gate authorizes through the policy and retrieves project
         return Gate::allows('update', $this->project());
     }
 
