@@ -114,5 +114,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="operations-admin" />
+    <orderEntry type="module" module-name="schedule" />
   </component>
 </module>

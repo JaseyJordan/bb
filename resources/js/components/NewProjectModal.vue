@@ -65,7 +65,7 @@
 
 
 <script>
-    import BirdBoardForm from './BirdBoardForm.js';
+    import UserForm from './BirdBoardForm.js';
 
     export default {
 
